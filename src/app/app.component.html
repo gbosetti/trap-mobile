@@ -1,0 +1,60 @@
+<ion-app>  
+    <ion-menu side="start" type="push" contentId="main">
+	  <ion-header>
+	    <ion-toolbar color="danger">
+	      <ion-title>Menú principal</ion-title>
+	    </ion-toolbar>
+	  </ion-header>
+	  <ion-content>
+	    <ion-list>
+
+	      <ion-item-divider>
+			    <ion-label>
+			      Modo de escaneo
+			    </ion-label>
+		  </ion-item-divider>
+
+		  <ion-radio-group value="ingresos">
+
+		    <ion-item>
+		      <ion-label>Registro de ingresos</ion-label>
+		      <ion-radio slot="start" value="ingresos"></ion-radio>
+		    </ion-item>
+
+		    <ion-item>
+		      <ion-label>Registro de egresos</ion-label>
+		      <ion-radio slot="start" value="egresos"></ion-radio>
+		    </ion-item>
+
+		  </ion-radio-group>
+
+		  <ion-item-divider>
+			    <ion-label>
+			      Modo de almacenamiento
+			    </ion-label>
+		  </ion-item-divider>
+		  <ion-radio-group value="remoto">
+
+		    <ion-item>
+		      <ion-label>Registro local</ion-label>
+		      <ion-radio slot="start" value="local"></ion-radio>
+		    </ion-item>
+
+		    <ion-item>
+		      <ion-label>Registro remoto</ion-label>
+		      <ion-radio slot="start" value="remoto"></ion-radio>
+		    </ion-item>
+		    
+		  </ion-radio-group>
+		  <ion-item-divider>
+			    <ion-label>
+			      Acciones
+			    </ion-label>
+		  </ion-item-divider>
+	      <ion-item (click)="closeMenu()" [routerLink]="['/home']">Cerrar sesión</ion-item>
+		</ion-list>
+	  </ion-content>
+	</ion-menu>
+
+    <ion-router-outlet Id="main"></ion-router-outlet>  
+</ion-app>  
