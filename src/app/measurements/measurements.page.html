@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">  
+    	<ion-back-button defaultHref="scan"></ion-back-button>
+    </ion-buttons>  
+    <ion-title>Evaluación del visitante</ion-title> 
+   </ion-toolbar>   
+ </ion-header>  
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+	<ion-item lines="full">
+          <ion-label position="">Temperatura</ion-label>
+          <ion-input type="number" placeholder="Ej. 36.5" [(ngModel)]="temperature" required autofocus="true"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          	<ion-label>Olfato</ion-label>
+			<ion-toggle [(ngModel)]="smell" required></ion-toggle>
+        </ion-item>
+
+        <ion-item-divider>
+		    <ion-label>
+		      Preguntas
+		    </ion-label>
+	    </ion-item-divider>
+
+        <ion-item>
+		    <ion-label class="ion-text-wrap">
+		    ¿Ha estado recientemente en contactocon algún caso covid-19 positivo?
+		    </ion-label>
+		    <ion-toggle [(ngModel)]="q1" required></ion-toggle>
+		</ion-item>
+
+		<ion-item>
+		    <ion-label class="ion-text-wrap">
+		    ¿Ha salido de la ciudad en los últimos 14 días?
+		    </ion-label>
+		    <ion-toggle [(ngModel)]="q2" required></ion-toggle>
+		</ion-item>
+
+		<ion-item>
+		    <ion-label class="ion-text-wrap">
+		    ¿Ha contraído covid-19 en los últimos 2 meses?
+		    </ion-label>
+		    <ion-toggle [(ngModel)]="q3" required></ion-toggle>
+		</ion-item>
+
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+	        <ion-col>
+	          <ion-button [routerLink]="['/scan']" type="submit" color="danger" expand="block">Guardar <ion-icon slot="end" name="save"></ion-icon></ion-button>
+	        </ion-col>
+	    </ion-row>
+	</ion-toolbar>
+</ion-footer>
+

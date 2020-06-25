@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { IonicModule } from '@ionic/angular';
-import { ScanPageRoutingModule } from './scan-routing.module';
-import { ScanPage } from './scan.page';
+
+import { MeasurementsPageRoutingModule } from './measurements-routing.module';
+
+import { MeasurementsPage } from './measurements.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ScanPageRoutingModule
+    MeasurementsPageRoutingModule
   ],
-  declarations: [ScanPage]
+  declarations: [MeasurementsPage]
 })
-export class ScanPageModule {}
+export class MeasurementsPageModule {}

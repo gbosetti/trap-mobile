@@ -13,24 +13,24 @@
         <ion-col align-self-center>
 
           <form>
-      <ion-item lines="full">
-        <ion-label position="floating">DNI</ion-label>
-        <ion-input type="text" required></ion-input>
-      </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">DNI</ion-label>
+              <ion-input type="text" required></ion-input>
+            </ion-item>
 
-      <ion-item lines="full">
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" required></ion-input>
-      </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input type="password" required></ion-input>
+            </ion-item>
 
-      <ion-row>
-        <ion-col>
-          <ion-button [routerLink]="['/scan']" type="submit" color="danger" expand="block">Ingresar</ion-button>
-        </ion-col>
-      </ion-row>
-      </form>
+            <ion-row>
+              <ion-col>
+                <ion-button [routerLink]="['/scan']" type="submit" color="danger" expand="block">Ingresar <ion-icon slot="end" name="log-in-outline"></ion-icon></ion-button>
+              </ion-col>
+            </ion-row>
+          </form>
           <span class="divider line one-line">o</span>
-          <a [routerLink]="['/forgot-password']" class="small-text">Recuperar contraseña</a>
+          <a [routerLink]="['/forgot-password']" class="small-text">Recuperar contraseña <ion-icon slot="end" name="lock-closed-outline"></ion-icon></a>
         </ion-col>
       </ion-row>
     </ion-grid>

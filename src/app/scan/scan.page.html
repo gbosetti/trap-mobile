@@ -1,12 +1,46 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">  
-    <ion-menu-button color="dark"></ion-menu-button>   
+    	<ion-menu-button color="dark"></ion-menu-button>   
     </ion-buttons>  
-    <ion-title>Identificación</ion-title>  
+    <ion-title>Identificación</ion-title> 
    </ion-toolbar>   
  </ion-header>  
 
-<ion-content>
+<ion-content [fullscreen]="true" class="ion-padding">
+	<!--<ion-fab vertical="top" horizontal="end" slot="fixed">
+	    <ion-fab-button [routerLink]="['/manual-identification']">
+	      <ion-icon name="keypad"></ion-icon>
+	    </ion-fab-button>
+	</ion-fab>-->
+
+    <ion-grid>
+      <ion-row>
+        <ion-col align-self-center>
+          <form>
+            <ion-item lines="full">
+              <ion-label position="floating">DNI</ion-label>
+              <ion-input type="text" required></ion-input>
+            </ion-item>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="ion-text-center">
+    	<br><br><br><br><br><br><br>
+    	<i>Camera preview</i>
+    </div>
 
 </ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+	        <ion-col>
+	          <ion-button [routerLink]="['/measurements']" type="submit" color="danger" expand="block">Siguiente <ion-icon slot="end" name="arrow-forward-outline"></ion-icon></ion-button>
+	        </ion-col>
+	    </ion-row>
+	</ion-toolbar>
+</ion-footer>
+
