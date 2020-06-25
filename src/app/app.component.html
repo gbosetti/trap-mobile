@@ -14,16 +14,16 @@
 			    </ion-label>
 		  </ion-item-divider>
 
-		  <ion-radio-group value="ingresos">
+		  <ion-radio-group value="CheckInScanStrategy" >
 
 		    <ion-item>
 		      <ion-label>Registro de ingresos</ion-label> <ion-icon slot="end" name="arrow-forward-circle-outline"></ion-icon>
-		      <ion-radio slot="start" value="ingresos"></ion-radio>
+		      <ion-radio slot="start" value="CheckInScanStrategy" (click)="setScanStrategy('CheckInScanStrategy')"></ion-radio>
 		    </ion-item>
 
 		    <ion-item>
 		      <ion-label>Registro de egresos</ion-label> <ion-icon slot="end" name="arrow-back-circle-outline"></ion-icon>
-		      <ion-radio slot="start" value="egresos"></ion-radio>
+		      <ion-radio slot="start" value="CheckOutScanStrategy" (click)="setScanStrategy('CheckOutScanStrategy')"></ion-radio>
 		    </ion-item>
 
 		  </ion-radio-group>
