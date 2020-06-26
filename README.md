@@ -30,5 +30,9 @@ npm i @ionic/lab --save-dev
 
 
 # DEV ENVIRONMENT #
+
+0. Clone the project and install dependencies:
+`npm install`
+
 1. Run the command to start the Ionic app:
 `ionic serve -l`

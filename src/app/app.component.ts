@@ -3,8 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router } from '@angular/router';
-import * as scanStrategies from './_model/scan-strategies';
+import {StorageService} from './_services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -13,15 +12,12 @@ import * as scanStrategies from './_model/scan-strategies';
 })
 export class AppComponent {
 
-  private scanStrategy; 
-  private storageStrategy; 
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private menu: MenuController,
-    private router: Router  
+    private menu: MenuController, 
+    private storage: StorageService
   ) {
     this.initializeApp();
   }
@@ -30,23 +26,12 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.scanStrategy = new scanStrategies.CheckInScanStrategy(this.router);
-      //this.storageStrategy = new storageStrategies["RemoteStorageStrategy"]();
     });
   }
 
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
-  }
-
-  openEnd() {
-    this.menu.open('end');
-  }
-
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
+  ngOnInit(){
+    this.storage.setScanStrategy('CheckInScanStrategy'); 
+    this.storage.setStorageStrategy('RemoteStorageStrategy');
   }
 
   closeMenu(){
@@ -54,14 +39,12 @@ export class AppComponent {
   }
 
   setScanStrategy(aClassName){
-    console.log(aClassName);
-    this.scanStrategy = new scanStrategies[aClassName]();
+    this.storage.setScanStrategy(aClassName); 
     this.closeMenu();
   }
 
-  setStorageStrategy(target){
-    console.log(target);
-    //this.storageStrategy = new storageStrategies[target.value]();
+  setStorageStrategy(aClassName){
+    this.storage.setStorageStrategy(aClassName); 
     this.closeMenu();
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StorageService} from '../_services/storage.service';
 
 @Component({
   selector: 'app-measurements',
@@ -11,9 +12,14 @@ export class MeasurementsPage implements OnInit {
 	smell: boolean;
 	canGoBack: boolean = false;
 
-  constructor() { }
+  constructor(private storage: StorageService) { }
 
   ngOnInit() {
+  	this.loadUserData();
+  }
+
+  loadUserData(){
+  	console.log(this.storage.getCurrentUser());
   }
 
 }
