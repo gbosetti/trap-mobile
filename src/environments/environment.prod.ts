@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://trap.hstn.me/api/'
+  apiUrl: 'https://triage.unlar.edu.ar/api/'
 };

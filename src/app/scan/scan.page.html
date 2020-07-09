@@ -6,6 +6,7 @@
     <ion-title>Identificación</ion-title> 
    </ion-toolbar>   
  </ion-header>  
+  
 
 <ion-content [fullscreen]="true" class="ion-padding">
 	<!--<ion-fab vertical="top" horizontal="end" slot="fixed">
@@ -17,10 +18,10 @@
     <ion-grid>
       <ion-row>
         <ion-col align-self-center>
-          <form>
+          <form class="" [formGroup]="form">
             <ion-item lines="full">
-              <ion-label position="floating">DNI</ion-label>
-              <ion-input type="text" required></ion-input>
+              <ion-label position="floating">DNI/pasaporte</ion-label>
+              <ion-input type="text" formControlName="dni" autofocus="true" required></ion-input>
             </ion-item>
           </form>
         </ion-col>
@@ -31,14 +32,13 @@
     	<br><br><br><br><br><br><br>
     	<i>Camera preview</i>
     </div>
-
 </ion-content>
 
 <ion-footer>
 	<ion-toolbar>
 		<ion-row>
 	        <ion-col>
-	          <ion-button [routerLink]="['/measurements']" type="submit" color="danger" expand="block">Siguiente <ion-icon slot="end" name="arrow-forward-outline"></ion-icon></ion-button>
+	          <ion-button type="submit" (click)="onSubmit()" color="danger" expand="block">Siguiente <ion-icon slot="end" name="arrow-forward-outline"></ion-icon></ion-button>
 	        </ion-col>
 	    </ion-row>
 	</ion-toolbar>

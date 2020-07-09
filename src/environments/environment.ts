@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://trap.hstn.me/api/'
+  apiUrl: 'https://triage.unlar.edu.ar/api/'
 };
 
 /*

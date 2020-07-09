@@ -1,2 +1,2 @@
-export * from './check-in-scan-strategy';
-export * from './check-out-scan-strategy';
+export * from './local-storage-strategy';
+export * from './remote-storage-strategy';

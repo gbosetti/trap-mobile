@@ -12,20 +12,26 @@
       <ion-row>
         <ion-col align-self-center>
 
-          <form>
+          <form class="container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <ion-item lines="full">
               <ion-label position="floating">DNI</ion-label>
-              <ion-input type="text" required></ion-input>
+              <ion-input formControlName="dni" required autofocus="true" type="text"></ion-input>
+              <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
+                <div *ngIf="f.dni.errors.required">El DNI es obligatorio</div>
+              </div>
             </ion-item>
 
             <ion-item lines="full">
               <ion-label position="floating">Contraseña</ion-label>
-              <ion-input type="password" required></ion-input>
+              <ion-input formControlName="password" type="password" required></ion-input>
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">La contraseña es obligatoria</div>
+              </div>
             </ion-item>
 
             <ion-row>
               <ion-col>
-                <ion-button [routerLink]="['/scan']" type="submit" color="danger" expand="block">Ingresar <ion-icon slot="end" name="log-in-outline"></ion-icon></ion-button>
+                <ion-button type="submit" color="danger" expand="block">Ingresar <ion-icon slot="end" name="log-in-outline"></ion-icon></ion-button>
               </ion-col>
             </ion-row>
           </form>

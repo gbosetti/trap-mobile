@@ -34,6 +34,11 @@ export class AppComponent {
     this.storage.setStorageStrategy('RemoteStorageStrategy');
   }
 
+  logout(){
+    this.storage.logout();
+    this.closeMenu();
+  }
+
   closeMenu(){
     this.menu.close();
   }
