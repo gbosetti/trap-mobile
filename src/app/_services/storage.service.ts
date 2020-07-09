@@ -24,7 +24,7 @@ export class StorageService {
 
         return new Promise((resolve, reject) => {
             console.log(aClass, storageStrategies);
-            this.storageStrategy = new storageStrategies["RemoteStorageStrategy"]();  // TODO: enable it when the local strategy is ready: new storageStrategies[aClass](this.router);
+            this.storageStrategy = new storageStrategies["RemoteStorageStrategy"](this.authenticationService, this.router);  // TODO: enable it when the local strategy is ready: new storageStrategies[aClass](this.router);
             resolve();
         });
     }
@@ -63,10 +63,6 @@ export class StorageService {
         return this.storageStrategy.getUserByDNI(dni);
     }
 
-    public get currentUserValue(): User {
-        return this.storageStrategy.getCurrentUserValue();
-    }
-
     login(dni, password) {
 
         return this.storageStrategy.login(dni, password);
@@ -75,5 +71,15 @@ export class StorageService {
     logout() {
         
         return this.storageStrategy.logout();
+    }
+
+    getCurrentUserValue() {
+        
+        return this.storageStrategy.getCurrentUserValue();
+    }
+
+    getMeasurementsRoute(){
+        
+        return this.scanStrategy.getMeasurementsRoute();
     }
 }

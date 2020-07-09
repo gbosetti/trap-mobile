@@ -7,7 +7,7 @@ export class CheckOutScanStrategy extends ScanStrategy {
 		super();
 	}
 
-	loadNextStep(){
-		this.router.navigate(['checkout-scanning']);
-	};
+    getMeasurementsRoute(){
+    	return '/checkout-scanning';
+    }
 }

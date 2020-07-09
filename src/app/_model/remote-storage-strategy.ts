@@ -2,10 +2,11 @@ import {StorageStrategy} from './storage-strategy';
 import { environment } from '../../environments/environment';
 import * as $ from 'jquery';
 import { AuthenticationService } from '../_services/authentication.service';
+import { Router } from '@angular/router';
 
 export class RemoteStorageStrategy extends StorageStrategy{
 
-	constructor(private authenticationService: AuthenticationService ) { 
+	constructor(private authenticationService: AuthenticationService, private router: Router) { 
 		super();
 	}
 
@@ -31,6 +32,10 @@ export class RemoteStorageStrategy extends StorageStrategy{
         });
     }
 
+    getCurrentUserValue(){
+    	return this.authenticationService.currentUserValue;
+    }
+
 	getUserById(id) {
 
         var formData = new FormData();
@@ -52,6 +57,9 @@ export class RemoteStorageStrategy extends StorageStrategy{
     }
 
     logout() {
-        return this.authenticationService.logout();
+    	console.log("logout from strategy");
+        var res = this.authenticationService.logout();
+        this.router.navigate(['/home']);
+        return res;
     }
 }

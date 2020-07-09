@@ -14,11 +14,13 @@ export class AuthenticationService {
     private apiUrl; //THIS SHOULD BE REPLACED BY THE ENVIRONMENTS VAR
 
     constructor(private http: HttpClient) {
+        console.log("STORAGE", localStorage.getItem('currentUser'));
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User {
+        console.log("GET", this.currentUserSubject.value)
         return this.currentUserSubject.value;
     }
 
@@ -63,6 +65,7 @@ export class AuthenticationService {
     }
 
     logout() {
+        console.log("LOGOUT", this.currentUserSubject);
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);

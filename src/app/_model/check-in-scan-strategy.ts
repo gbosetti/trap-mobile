@@ -7,7 +7,7 @@ export class CheckInScanStrategy extends ScanStrategy {
 		super();
 	}
 
-	loadNextStep(){
-		this.router.navigate(['measurements']);
-	};
+    getMeasurementsRoute(){
+    	return '/measurements';
+    }
 }

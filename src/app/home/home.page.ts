@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../_services/authentication.service';
+import { StorageService } from '../_services/storage.service';
 import * as $ from 'jquery';
 declare var bootbox: any;
 
@@ -21,10 +21,11 @@ export class HomePage {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private storage: StorageService
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
+        console.log(this.storage.getCurrentUserValue());
+        if (this.storage.getCurrentUserValue()) {
             this.router.navigate(['/scan']);
         }
     }
@@ -51,7 +52,7 @@ export class HomePage {
 	    }
 
 	    this.loading = true;
-	    this.authenticationService.login(this.f.dni.value, this.f.password.value).then(userData => {
+	    this.storage.login(this.f.dni.value, this.f.password.value).then(userData => {
 	        this.router.navigate(['/scan']);
 	    }, errorMessage => {
 	        alert(errorMessage);
