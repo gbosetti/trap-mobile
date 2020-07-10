@@ -3,10 +3,10 @@ import {StorageService} from '../_services/storage.service';
 
 @Component({
   selector: 'app-measurements',
-  templateUrl: './measurements.page.html',
-  styleUrls: ['./measurements.page.scss'],
+  templateUrl: './checkin-measurements.page.html',
+  styleUrls: ['./checkin-measurements.page.scss'],
 })
-export class MeasurementsPage implements OnInit {
+export class CheckinMeasurementsPage implements OnInit {
 
 	temperature: number;
 	smell: boolean;

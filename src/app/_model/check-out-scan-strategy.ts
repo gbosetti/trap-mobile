@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 
 export class CheckOutScanStrategy extends ScanStrategy {
 
-	constructor(private router: Router) {
+	constructor() {
 		super();
 	}
 
     getMeasurementsRoute(){
-    	return '/checkout-scanning';
+    	return '/checkout-measurements';
     }
 }

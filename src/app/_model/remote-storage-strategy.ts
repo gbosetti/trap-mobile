@@ -59,7 +59,7 @@ export class RemoteStorageStrategy extends StorageStrategy{
     logout() {
     	console.log("logout from strategy");
         var res = this.authenticationService.logout();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
         return res;
     }
 }

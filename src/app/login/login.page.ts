@@ -6,11 +6,11 @@ import * as $ from 'jquery';
 declare var bootbox: any;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-login',
+  templateUrl: 'login.page.html',
+  styleUrls: ['login.page.scss'],
 })
-export class HomePage {
+export class LoginPage {
 
   	loginForm: FormGroup;
     loading = false;
@@ -23,7 +23,7 @@ export class HomePage {
         private router: Router,
         private storage: StorageService
     ) {
-        // redirect to home if already logged in
+        // redirect to login if already logged in
         console.log(this.storage.getCurrentUserValue());
         if (this.storage.getCurrentUserValue()) {
             this.router.navigate(['/scan']);

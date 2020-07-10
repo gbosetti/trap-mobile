@@ -67,6 +67,7 @@ export class ScanPage implements OnInit {
         
         if(res.data.dni == this.f.dni.value){
           this.storage.setCurrentUserByDNI(res.data.dni).then(userData => {
+            console.log("Routnggggg", this.storage.getMeasurementsRoute());
             this.router.navigate([this.storage.getMeasurementsRoute()]);
           }, errorMessage => {
               alert(errorMessage);

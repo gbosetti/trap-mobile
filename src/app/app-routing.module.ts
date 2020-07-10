@@ -3,12 +3,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -21,11 +21,11 @@ const routes: Routes = [
   },
   {
     path: 'measurements',
-    loadChildren: () => import('./measurements/measurements.module').then( m => m.MeasurementsPageModule)
+    loadChildren: () => import('./checkin-measurements/checkin-measurements.module').then( m => m.CheckinMeasurementsPageModule)
   },
   {
-    path: 'checkout-scanning',
-    loadChildren: () => import('./checkout-scanning/checkout-scanning.module').then( m => m.CheckoutScanningPageModule)
+    path: 'checkout-measurements',
+    loadChildren: () => import('./checkout-measurements/checkout-measurements.module').then( m => m.CheckoutMeasurementsPageModule)
   },
 ];
 

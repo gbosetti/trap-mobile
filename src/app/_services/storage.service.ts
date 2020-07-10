@@ -42,20 +42,15 @@ export class StorageService {
     	return new Promise((resolve, reject) => {
             this.getUserByDNI(dni).then(user=>{
             	console.log('current user:', user);
-	            this.currentUserId=user['id'];
+	            this.currentUserId=user['dni'];
 	            resolve();
 	        });     
         });
     }
 
     getCurrentUser() {
-
-        return this.getUserById(this.currentUserId);
-    }
-
-	getUserById(id) {
-
-        return this.storageStrategy.getUserById(id);
+        console.log(this.currentUserId);
+        return this.getUserByDNI(this.currentUserId);
     }
 
     getUserByDNI(dni) {
