@@ -10,4 +10,5 @@ export abstract class StorageStrategy {
 	abstract getUserByDNI(dni)
 	abstract login(dni, password) 
 	abstract logout()
+	abstract getCurrentGuard()
 }

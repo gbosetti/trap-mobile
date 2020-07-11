@@ -14,8 +14,12 @@ export class CheckinMeasurementsPage implements OnInit {
 	smell: boolean;
 	canGoBack: boolean = false;
   questions;
+  visitor: string;
 
   constructor(private storage: StorageService, private router: Router) {
+
+    this.smell = false;
+
     this.storage.getRandomQuestions().then(res=>{
       this.questions = res.data.map(q=>{return {
         "label": q.cuerpo, 
@@ -23,6 +27,10 @@ export class CheckinMeasurementsPage implements OnInit {
         "target": Boolean(Number(q.respuesta_esperada)),
         "isItemChecked": false
       }});
+    }).catch(err=>{console.log(err)});
+
+    this.storage.getCurrentVisitor().then(res=>{
+      this.visitor = res.data.apellido.toUpperCase() + ", " + res.data.nombre + " (" + res.data.dni + ")"
     }).catch(err=>{console.log(err)});
   }
 
@@ -36,11 +44,15 @@ export class CheckinMeasurementsPage implements OnInit {
       return;
     }
     var rightAnswers = this.questions.filter(f=>{return f.isItemChecked==f.target});
-    
-    if(rightAnswers.length<this.questions.length){
-      this.storage.denyEntryToCurrentVisitor(this.temperature, this.smell, this.questions);
-      alert("Este visitante no ha superado las preguntas de la foma esperada. No debe ingresar a las instalaciones.");
-      this.router.navigate(["/scan"]);
+    console.log(this.questions);
+
+    if(rightAnswers.length<this.questions.length || this.smell==false){
+      this.storage.denyEntryToCurrentVisitor(this.temperature, this.smell, this.questions).then(data=>{
+        alert(data.message);
+        this.router.navigate(["/scan"]);
+      }).catch(err=>{
+        alert(err);
+      });
     }
     else {
       this.storage.checkinCurrentVisitor(this.temperature, this.smell, this.questions).then(data=>{

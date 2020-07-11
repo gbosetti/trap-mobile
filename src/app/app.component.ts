@@ -14,6 +14,8 @@ export class AppComponent {
 
   scanStrategy;
   storageStrategy;
+  guardFullName: string;
+  guardDni: string;
 
   constructor(
     private platform: Platform,
@@ -37,6 +39,10 @@ export class AppComponent {
     this.scanStrategy = this.storage.getCurrentScanStrategy();
     this.storage.setStorageStrategy(this.storage.getCurrentStorageStrategy());
     this.storageStrategy = this.storage.getCurrentStorageStrategy();
+    this.storage.getCurrentGuard().then(res=>{
+      this.guardFullName = res.data.apellido.toUpperCase() + ", " + res.data.nombre;
+      this.guardDni = res.data.dni;
+    }).catch(err=>{console.log(err)});
   }
 
   logout(){

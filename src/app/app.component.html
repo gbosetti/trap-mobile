@@ -1,60 +1,70 @@
 <ion-app>  
-    <ion-menu side="start" type="push" contentId="main">
-	  <ion-header>
-	    <ion-toolbar color="danger">
-	      <ion-title>Menú principal</ion-title>
-	    </ion-toolbar>
-	  </ion-header>
-	  <ion-content>
-	    <ion-list>
+	<ion-menu side="start" type="push" contentId="main">
+		<ion-header>
+			<ion-toolbar color="danger">
+				<ion-title>Menú principal</ion-title>
+			</ion-toolbar>
+		</ion-header>
+		<ion-content>
+			<ion-list>
 
-	      <ion-item-divider>
-			    <ion-label>
-			      Modo de escaneo
-			    </ion-label>
-		  </ion-item-divider>
+				<ion-item-divider>
+					<ion-label>
+						Bienvenido
+					</ion-label>
+				</ion-item-divider>
 
-		  <ion-radio-group value="CheckInScanStrategy" [(ngModel)]="scanStrategy">
+				<ion-item class="item item-text-wrap">
+					<ion-label position=""><b>{{guardFullName}}</b><br>DNI/Pasaporte: {{guardDni}}</ion-label>
+				</ion-item>
 
-		    <ion-item>
-		      <ion-label>Registro de ingresos</ion-label> <ion-icon slot="end" name="arrow-forward-circle-outline"></ion-icon>
-		      <ion-radio slot="start" value="CheckInScanStrategy" (click)="setScanStrategy('CheckInScanStrategy')"></ion-radio>
-		    </ion-item>
+				<ion-item-divider>
+					<ion-label>
+						Modo de escaneo
+					</ion-label>
+				</ion-item-divider>
 
-		    <ion-item>
-		      <ion-label>Registro de egresos</ion-label> <ion-icon slot="end" name="arrow-back-circle-outline"></ion-icon>
-		      <ion-radio slot="start" value="CheckOutScanStrategy" (click)="setScanStrategy('CheckOutScanStrategy')"></ion-radio>
-		    </ion-item>
+				<ion-radio-group value="CheckInScanStrategy" [(ngModel)]="scanStrategy">
 
-		  </ion-radio-group>
+					<ion-item>
+						<ion-label>Registro de ingresos</ion-label> <ion-icon slot="end" name="arrow-forward-circle-outline"></ion-icon>
+						<ion-radio slot="start" value="CheckInScanStrategy" (click)="setScanStrategy('CheckInScanStrategy')"></ion-radio>
+					</ion-item>
 
-		  <ion-item-divider>
-			    <ion-label>
-			      Modo de almacenamiento
-			    </ion-label>
-		  </ion-item-divider>
-		  <ion-radio-group value="remoto" [(ngModel)]="storageStrategy">
+					<ion-item>
+						<ion-label>Registro de egresos</ion-label> <ion-icon slot="end" name="arrow-back-circle-outline"></ion-icon>
+						<ion-radio slot="start" value="CheckOutScanStrategy" (click)="setScanStrategy('CheckOutScanStrategy')"></ion-radio>
+					</ion-item>
 
-		    <ion-item>
-		      <ion-label>Registro local </ion-label> <ion-icon slot="end" name="document-outline"></ion-icon>
-		      <ion-radio slot="start" value="local" disabled></ion-radio>
-		    </ion-item>
+				</ion-radio-group>
 
-		    <ion-item>
-		      <ion-label>Registro remoto </ion-label> <ion-icon slot="end" name="cloud-upload-outline"></ion-icon>
-		      <ion-radio slot="start" value="remoto"></ion-radio>
-		    </ion-item>
-		    
-		  </ion-radio-group>
-		  <ion-item-divider>
-			    <ion-label>
-			      Acciones
-			    </ion-label>
-		  </ion-item-divider>
-	      <ion-item (click)="logout()">Cerrar sesión  <ion-icon slot="end" name="log-out-outline"></ion-icon></ion-item>
-		</ion-list>
-	  </ion-content>
+				<ion-item-divider>
+					<ion-label>
+						Modo de almacenamiento
+					</ion-label>
+				</ion-item-divider>
+				<ion-radio-group value="remoto" [(ngModel)]="storageStrategy">
+
+					<ion-item>
+						<ion-label>Registro local </ion-label> <ion-icon slot="end" name="document-outline"></ion-icon>
+						<ion-radio slot="start" value="local" disabled></ion-radio>
+					</ion-item>
+
+					<ion-item>
+						<ion-label>Registro remoto </ion-label> <ion-icon slot="end" name="cloud-upload-outline"></ion-icon>
+						<ion-radio slot="start" value="remoto"></ion-radio>
+					</ion-item>
+
+				</ion-radio-group>
+				<ion-item-divider>
+					<ion-label>
+						Acciones
+					</ion-label>
+				</ion-item-divider>
+				<ion-item (click)="logout()">Cerrar sesión  <ion-icon slot="end" name="log-out-outline"></ion-icon></ion-item>
+			</ion-list>
+		</ion-content>
 	</ion-menu>
 
-    <ion-router-outlet Id="main"></ion-router-outlet>  
+	<ion-router-outlet Id="main"></ion-router-outlet>  
 </ion-app>  

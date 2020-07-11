@@ -3,13 +3,23 @@
     <ion-buttons slot="start">  
     	<ion-back-button defaultHref="scan"></ion-back-button>
     </ion-buttons>  
-    <ion-title>Evaluación del visitante</ion-title> 
+    <ion-title>Ingreso del visitante</ion-title> 
    </ion-toolbar>   
  </ion-header>  
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
-	<ion-item lines="full">
+		<ion-item lines="full">
+          <ion-label position=""><b>{{visitor}}</b></ion-label>
+        </ion-item>
+
+		<ion-item-divider>
+		    <ion-label>
+		      Mediciones
+		    </ion-label>
+	    </ion-item-divider>
+
+		<ion-item lines="full">
           <ion-label position="">Temperatura</ion-label>
           <ion-input type="number" placeholder="Ej. 36.5" min=34 max=43 [(ngModel)]="temperature" required autofocus="true"></ion-input>
         </ion-item>

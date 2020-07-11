@@ -31,7 +31,7 @@ export class StorageService {
     }
 
     denyEntryToCurrentVisitor(temperature, smell_test_passed, questions){
-        return this.storageStrategy.denyEntryToCurrentVisitor(this.currentUserDni, temperature, smell_test_passed, questions);
+        return this.storageStrategy.denyEntryToVisitor(this.currentUserDni, temperature, smell_test_passed, questions);
     }
 
     registerVisitor(dni, name, surname, tel, cod_area){
@@ -106,6 +106,14 @@ export class StorageService {
     getUserByDNI(dni) {
 
         return this.storageStrategy.getUserByDNI(dni);
+    }
+
+    createFacilities(name){
+        return this.storageStrategy.createFacilities(name);
+    }
+
+    getCurrentGuard(){
+        return this.storageStrategy.getCurrentGuard();
     }
 
     login(dni, password) {

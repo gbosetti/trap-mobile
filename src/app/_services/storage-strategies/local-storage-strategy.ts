@@ -44,4 +44,12 @@ export class LocalStorageStrategy extends StorageStrategy {
 	logout(){
 
 	}
+
+	getCurrentGuard(){
+
+    }
+
+    createFacilities(name){
+
+    }
 }

@@ -48,6 +48,7 @@ export class ScanPage implements OnInit {
     this.form = this.formBuilder.group({
         dni: ['', Validators.required]
     });
+    this.form.reset();
   }
 
   get f() { return this.form.controls; }

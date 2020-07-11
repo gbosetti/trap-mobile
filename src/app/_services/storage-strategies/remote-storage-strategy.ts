@@ -148,9 +148,19 @@ export class RemoteStorageStrategy extends StorageStrategy{
     }
 
     logout() {
-    	console.log("logout from strategy");
         var res = this.authenticationService.logout();
         this.router.navigate(['/login']);
         return res;
+    }
+
+    getCurrentGuard(){
+        return this.getUserByDNI(this.authenticationService.getCurrentGuardDni());
+    }
+
+    createFacilities(name){
+        var formData = new FormData();
+            formData.append("nombre", name);
+
+        return this.post(formData, "instalaciones_nueva.php");
     }
 }
