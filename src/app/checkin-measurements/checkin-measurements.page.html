@@ -25,7 +25,14 @@
 		    </ion-label>
 	    </ion-item-divider>
 
-        <ion-item>
+	    <ion-list>
+			<ion-item *ngFor="let option of questions">
+				<ion-label class="ion-text-wrap">{{option.label}}</ion-label>
+				<ion-toggle [(ngModel)]="option.isItemChecked" required></ion-toggle>
+			</ion-item>
+		</ion-list>
+
+        <!--<ion-item>
 		    <ion-label class="ion-text-wrap">
 		    ¿Ha estado recientemente en contactocon algún caso covid-19 positivo?
 		    </ion-label>
@@ -44,7 +51,7 @@
 		    ¿Ha contraído covid-19 en los últimos 2 meses?
 		    </ion-label>
 		    <ion-toggle [(ngModel)]="q3" required></ion-toggle>
-		</ion-item>
+		</ion-item>-->
 
 </ion-content>
 

@@ -28,7 +28,7 @@ export class CheckoutMeasurementsPage implements OnInit {
   		alert("Debe seleccionar al menos una delas instalaciones");
   	}
   	else {
-  		this.storage.checkoutCurrentUser(selectedFacilities).then(data=>{
+  		this.storage.checkoutCurrentVisitor(selectedFacilities).then(data=>{
   			alert(data.message);
   			this.router.navigate(["/scan"]);
   		}).catch(err=>{

@@ -19,9 +19,9 @@ export class RemoteStorageStrategy extends StorageStrategy{
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    //console.log(data);
+                    console.log(data);
                     var res = JSON.parse(data);    
-                    //console.log(res);                
+                    console.log(res);                
                     if(res.error==false) resolve(res);
                     else reject(res.message);
                 },

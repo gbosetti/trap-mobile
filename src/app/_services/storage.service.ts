@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import * as scanStrategies from '../_model/scan-strategies';
-import * as storageStrategies from '../_model/storage-strategies';
+import * as storageStrategies from '../_services/storage-strategies';
 import * as $ from 'jquery';
 
 @Injectable({
@@ -22,12 +22,20 @@ export class StorageService {
         this.currentUserDni = localStorage.getItem('currentVisitorDni');
     }
 
-    checkoutCurrentUser(facilities){
-        return this.storageStrategy.checkoutUser(this.currentUserDni, facilities);
+    checkoutCurrentVisitor(facilities){
+        return this.storageStrategy.checkoutVisitor(this.currentUserDni, facilities);
+    }
+
+    checkinCurrentVisitor(facilities){
+        return this.storageStrategy.checkoutVisitor(this.currentUserDni, facilities);
     }
 
     getFacilities(){
         return this.storageStrategy.getFacilities();
+    }
+
+    getRandomQuestions(){
+        return this.storageStrategy.getRandomQuestions();
     }
 
     getCurrentStorageStrategy(){
