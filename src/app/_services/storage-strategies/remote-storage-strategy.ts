@@ -1,7 +1,7 @@
 import {StorageStrategy} from './storage-strategy';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import * as $ from 'jquery';
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { Router } from '@angular/router';
 
 export class RemoteStorageStrategy extends StorageStrategy{
@@ -19,9 +19,9 @@ export class RemoteStorageStrategy extends StorageStrategy{
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    //console.log(data);
+                    console.log(data);
                     var res = JSON.parse(data);    
-                    //console.log(res);                
+                    console.log(res);                
                     if(res.error==false) resolve(res);
                     else reject(res.message);
                 },
@@ -55,6 +55,30 @@ export class RemoteStorageStrategy extends StorageStrategy{
         });
     }
 
+    registerVisitor(dni, name, surname, tel, cod_area){
+
+        var formData = new FormData();
+            formData.append("dni", dni);
+            formData.append("nombre", name);
+            formData.append("apellido", surname);
+            formData.append("telefono", tel);
+            formData.append("codigo_area", cod_area);
+
+        return this.post(formData, 'usuario_nuevo.php');
+    }
+
+    denyEntryToVisitor(dni_visitante, temperature, smell_test_passed, questions){
+
+        var formData = new FormData();
+            formData.append("dni_visitante", dni_visitante);
+            formData.append("dni_guardia_ingreso", this.getCurrentGuardDni());
+            formData.append("temperatura", temperature);
+            formData.append("supero_olfativo", smell_test_passed);
+            formData.append("questions", JSON.stringify(questions));
+
+        return this.post(formData, 'movimiento_deny.php');
+    }
+
     getRandomQuestions(){
         return this.get(undefined, 'preguntas_random.php');
     }
@@ -69,14 +93,16 @@ export class RemoteStorageStrategy extends StorageStrategy{
         return this.post(formData, 'movimiento_checkout.php');
     }
 
-    checkinVisitor(dni_visitante, facilities){
+    checkinVisitor(dni_visitante, temperature, smell_test_passed, questions){
 
         var formData = new FormData();
             formData.append("dni_visitante", dni_visitante);
-            formData.append("dni_guardia_egreso", this.getCurrentGuardDni());
-            formData.append("facilities", JSON.stringify(facilities));
+            formData.append("dni_guardia_ingreso", this.getCurrentGuardDni());
+            formData.append("temperatura", temperature);
+            formData.append("supero_olfativo", smell_test_passed);
+            formData.append("questions", JSON.stringify(questions));
 
-        return this.post(formData, 'movimiento_checkout.php');
+        return this.post(formData, 'movimiento_checkin.php');
     }
 
     getFacilities(){

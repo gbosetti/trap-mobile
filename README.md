@@ -36,3 +36,6 @@ npm i @ionic/lab --save-dev
 
 1. Run the command to start the Ionic app:
 `ionic serve -l`
+
+2. To deploy:
+`ionic cordova build android --prod`

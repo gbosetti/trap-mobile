@@ -12,8 +12,8 @@ import {StorageService} from './_services/storage.service';
 })
 export class AppComponent {
 
-  private scanStrategy;
-  private storageStrategy;
+  scanStrategy;
+  storageStrategy;
 
   constructor(
     private platform: Platform,

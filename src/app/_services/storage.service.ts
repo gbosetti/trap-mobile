@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import * as scanStrategies from '../_model/scan-strategies';
-import * as storageStrategies from '../_services/storage-strategies';
+import * as storageStrategies from '../_services/storage-strategies/storage-strategies';
 import * as $ from 'jquery';
 
 @Injectable({
