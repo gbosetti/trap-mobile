@@ -25,7 +25,7 @@ export class CheckoutMeasurementsPage implements OnInit {
   onSubmit(){
   	var selectedFacilities = this.checkboxes.filter(f=>{return f.isItemChecked}).map(f=>{ return f.value});
   	if(selectedFacilities.length<=0){
-  		alert("Debe seleccionar al menos una delas instalaciones");
+  		alert("Debe seleccionar al menos una de las instalaciones");
   	}
   	else {
   		this.storage.checkoutCurrentVisitor(selectedFacilities).then(data=>{
@@ -36,5 +36,4 @@ export class CheckoutMeasurementsPage implements OnInit {
   		});
   	}
   }
-
 }

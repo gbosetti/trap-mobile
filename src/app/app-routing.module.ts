@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'checkout-measurements',
     loadChildren: () => import('./checkout-measurements/checkout-measurements.module').then( m => m.CheckoutMeasurementsPageModule)
+  },
+  {
+    path: 'register-visitor',
+    loadChildren: () => import('./register-visitor/register-visitor.module').then( m => m.RegisterVisitorPageModule)
   }
 ];
 

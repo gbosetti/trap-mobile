@@ -26,8 +26,16 @@ export class StorageService {
         return this.storageStrategy.checkoutVisitor(this.currentUserDni, facilities);
     }
 
-    checkinCurrentVisitor(facilities){
-        return this.storageStrategy.checkoutVisitor(this.currentUserDni, facilities);
+    checkinCurrentVisitor(temperature, smell_test_passed, questions){
+        return this.storageStrategy.checkinVisitor(this.currentUserDni, temperature, smell_test_passed, questions);
+    }
+
+    denyEntryToCurrentVisitor(temperature, smell_test_passed, questions){
+        return this.storageStrategy.denyEntryToCurrentVisitor(this.currentUserDni, temperature, smell_test_passed, questions);
+    }
+
+    registerVisitor(dni, name, surname, tel, cod_area){
+        return this.storageStrategy.registerVisitor(dni, name, surname, tel, cod_area);
     }
 
     getFacilities(){

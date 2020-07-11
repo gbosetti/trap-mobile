@@ -63,6 +63,12 @@ export class ScanPage implements OnInit {
       this.loading = true;
       this.storage.getUserByDNI(this.f.dni.value).then((res:any) => {
         
+        if(res.data==undefined){
+          alert("El visitante no está registrado bajo este DNI/pasaporte. Por favor, primero regístrelo.");
+          this.router.navigate(['/register-visitor']);
+          return;
+        }
+
         if(res.data.dni == this.f.dni.value){
           this.storage.setCurrentVisitorByDNI(res.data.dni).then(userData => {
             this.form.reset();
@@ -71,10 +77,6 @@ export class ScanPage implements OnInit {
               alert(errorMessage);
               this.loading = false;
           });
-        }
-        else{
-          alert("El visitante no ha sido registrado bajo este DNI/pasaporte");
-          this.router.navigate(['/register-visitor']);
         }
 
       }, errorMessage => {

@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-buttons slot="start">  
+			<ion-back-button defaultHref="scan"></ion-back-button>
+		</ion-buttons>  
+		<ion-title>Registrar visitante</ion-title> 
+	</ion-toolbar>   
+</ion-header>  
+
+<ion-content [fullscreen]="true" class="ion-padding">
+	<form [formGroup]="form">
+
+		<ion-item lines="full">
+			<ion-label position="">Nombre</ion-label>
+			<ion-input type="text" formControlName="name" required autofocus="true"></ion-input>
+			<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+				<div *ngIf="f.name.errors.required">Este campo es obligatorio</div>
+			</div>
+		</ion-item>
+
+		<ion-item lines="full">
+			<ion-label position="">Apellido</ion-label>
+			<ion-input type="text" formControlName="surname" required></ion-input>
+			<div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
+				<div *ngIf="f.surname.errors.required">Este campo es obligatorio</div>
+			</div>
+		</ion-item>
+
+		<ion-item lines="full">
+			<ion-label position="">DNI/Pasaporte</ion-label>
+			<ion-input type="text" formControlName="dni" required></ion-input>
+			<div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
+				<div *ngIf="f.dni.errors.required">Este campo es obligatorio</div>
+			</div>
+		</ion-item>
+
+		<ion-item lines="full">
+			<ion-label position="">Código de area</ion-label>
+			<ion-input type="number" formControlName="codigo_area" placeholder="Ej. 0380" required></ion-input>
+			<div *ngIf="submitted && f.codigo_area.errors" class="invalid-feedback">
+				<div *ngIf="f.codigo_area.errors.required">Este campo es obligatorio</div>
+			</div>
+		</ion-item>
+
+		<ion-item lines="full">
+			<ion-label position="">Teléfono</ion-label>
+			<ion-input type="number" formControlName="telefono" required></ion-input>
+			<div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
+				<div *ngIf="f.telefono.errors.required">Este campo es obligatorio</div>
+			</div>
+		</ion-item>
+
+	</form>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+			<ion-col>
+				<ion-button (click)="onSubmit()" type="submit" color="danger" expand="block">Guardar <ion-icon slot="end" name="save"></ion-icon></ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>

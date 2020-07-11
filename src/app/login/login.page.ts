@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../_services/storage.service';
 import * as $ from 'jquery';
-declare var bootbox: any;
 
 @Component({
   selector: 'app-login',

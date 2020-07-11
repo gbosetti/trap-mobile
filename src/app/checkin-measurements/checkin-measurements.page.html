@@ -26,32 +26,11 @@
 	    </ion-item-divider>
 
 	    <ion-list>
-			<ion-item *ngFor="let option of questions">
-				<ion-label class="ion-text-wrap">{{option.label}}</ion-label>
-				<ion-toggle [(ngModel)]="option.isItemChecked" required></ion-toggle>
+			<ion-item *ngFor="let q of questions">
+				<ion-label class="ion-text-wrap">{{q.label}}</ion-label>
+				<ion-toggle [(ngModel)]="q.isItemChecked" required></ion-toggle>
 			</ion-item>
 		</ion-list>
-
-        <!--<ion-item>
-		    <ion-label class="ion-text-wrap">
-		    ¿Ha estado recientemente en contactocon algún caso covid-19 positivo?
-		    </ion-label>
-		    <ion-toggle [(ngModel)]="q1" required></ion-toggle>
-		</ion-item>
-
-		<ion-item>
-		    <ion-label class="ion-text-wrap">
-		    ¿Ha salido de la ciudad en los últimos 14 días?
-		    </ion-label>
-		    <ion-toggle [(ngModel)]="q2" required></ion-toggle>
-		</ion-item>
-
-		<ion-item>
-		    <ion-label class="ion-text-wrap">
-		    ¿Ha contraído covid-19 en los últimos 2 meses?
-		    </ion-label>
-		    <ion-toggle [(ngModel)]="q3" required></ion-toggle>
-		</ion-item>-->
 
 </ion-content>
 
@@ -59,7 +38,7 @@
 	<ion-toolbar>
 		<ion-row>
 	        <ion-col>
-	          <ion-button [routerLink]="['/scan']" type="submit" color="danger" expand="block">Guardar <ion-icon slot="end" name="save"></ion-icon></ion-button>
+	          <ion-button (click)="onSubmit()" type="submit" color="danger" expand="block">Guardar <ion-icon slot="end" name="save"></ion-icon></ion-button>
 	        </ion-col>
 	    </ion-row>
 	</ion-toolbar>
