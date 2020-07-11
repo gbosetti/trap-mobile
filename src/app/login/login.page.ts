@@ -24,8 +24,7 @@ export class LoginPage {
         private storage: StorageService
     ) {
         // redirect to login if already logged in
-        console.log(this.storage.getCurrentUserValue());
-        if (this.storage.getCurrentUserValue()) {
+        if (this.storage.getCurrentGuardDni()) {
             this.router.navigate(['/scan']);
         }
     }

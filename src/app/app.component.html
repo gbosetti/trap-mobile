@@ -14,7 +14,7 @@
 			    </ion-label>
 		  </ion-item-divider>
 
-		  <ion-radio-group value="CheckInScanStrategy" >
+		  <ion-radio-group value="CheckInScanStrategy" [(ngModel)]="scanStrategy">
 
 		    <ion-item>
 		      <ion-label>Registro de ingresos</ion-label> <ion-icon slot="end" name="arrow-forward-circle-outline"></ion-icon>
@@ -33,11 +33,11 @@
 			      Modo de almacenamiento
 			    </ion-label>
 		  </ion-item-divider>
-		  <ion-radio-group value="remoto">
+		  <ion-radio-group value="remoto" [(ngModel)]="storageStrategy">
 
 		    <ion-item>
 		      <ion-label>Registro local </ion-label> <ion-icon slot="end" name="document-outline"></ion-icon>
-		      <ion-radio slot="start" value="local"></ion-radio>
+		      <ion-radio slot="start" value="local" disabled></ion-radio>
 		    </ion-item>
 
 		    <ion-item>

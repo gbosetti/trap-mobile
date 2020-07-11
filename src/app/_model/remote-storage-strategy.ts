@@ -19,6 +19,29 @@ export class RemoteStorageStrategy extends StorageStrategy{
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    console.log(data);
+                    var res = JSON.parse(data);    
+                    console.log(res);                
+                    if(res.error==false) resolve(res);
+                    else reject(res.message);
+                },
+                "error": function (request, status) {
+                    reject(status);
+                },
+                data: formData
+            });
+        });
+    }
+
+    get(formData, endpoint) {
+
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: environment.apiUrl+endpoint,
+                type: 'get',
+                processData: false,
+                contentType: false,
+                success: function (data) {
                     var res = JSON.parse(data);
                     console.log(res);
                     if(res.error==false) resolve(res);
@@ -32,8 +55,36 @@ export class RemoteStorageStrategy extends StorageStrategy{
         });
     }
 
-    getCurrentUserValue(){
-    	return this.authenticationService.currentUserValue;
+    checkoutUser(dni_visitante, facilities){
+
+        var formData = new FormData();
+            formData.append("dni_visitante", dni_visitante);
+            formData.append("dni_guardia_egreso", this.getCurrentGuardDni());
+            formData.append("facilities", JSON.stringify(facilities));
+
+        return this.post(formData, 'movimientos_nuevo.php');
+    }
+
+    getFacilities(){
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: environment.apiUrl+'instalaciones.php',
+                type: 'get',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var res = JSON.parse(data);
+                    resolve(res);
+                },
+                "error": function (request, status) {
+                    reject(request.responseText);
+                }
+            });
+        });
+    }
+
+    getCurrentGuardDni(){
+    	return this.authenticationService.getCurrentGuardDni();
     }
 
 	getUserById(id) {

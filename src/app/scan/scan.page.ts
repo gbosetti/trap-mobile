@@ -45,14 +45,12 @@ export class ScanPage implements OnInit {
   }
 
   ngOnInit() {
-    //this.storage.setCurrentUserByDNI(33609728); //Example. Remove after coding the scanCode implementation
+    this.form = this.formBuilder.group({
+        dni: ['', Validators.required]
+    });
+  }
 
-        this.form = this.formBuilder.group({
-            dni: ['', Validators.required]
-        });
-    }
-
-    get f() { return this.form.controls; }
+  get f() { return this.form.controls; }
 
   onSubmit() {
       this.submitted = true;
@@ -66,8 +64,8 @@ export class ScanPage implements OnInit {
       this.storage.getUserByDNI(this.f.dni.value).then((res:any) => {
         
         if(res.data.dni == this.f.dni.value){
-          this.storage.setCurrentUserByDNI(res.data.dni).then(userData => {
-            console.log("Routnggggg", this.storage.getMeasurementsRoute());
+          this.storage.setCurrentVisitorByDNI(res.data.dni).then(userData => {
+            this.form.reset();
             this.router.navigate([this.storage.getMeasurementsRoute()]);
           }, errorMessage => {
               alert(errorMessage);

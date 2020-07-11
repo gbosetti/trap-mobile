@@ -19,7 +19,7 @@ export class CheckinMeasurementsPage implements OnInit {
   }
 
   loadUserData(){
-  	console.log(this.storage.getCurrentUser());
+  	console.log(this.storage.getCurrentVisitor());
   }
 
 }

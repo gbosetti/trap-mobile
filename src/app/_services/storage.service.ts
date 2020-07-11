@@ -16,15 +16,48 @@ export class StorageService {
 
 	private scanStrategy; 
   	private storageStrategy; 
-  	private currentUserId;
+  	private currentUserDni; // Visitor, not guard
 
-    constructor(private router: Router, private authenticationService: AuthenticationService ) { }
+    constructor(private router: Router, private authenticationService: AuthenticationService ) { 
+        this.currentUserDni = localStorage.getItem('currentVisitorDni');
+    }
+
+    checkoutCurrentUser(facilities){
+        return this.storageStrategy.checkoutUser(this.currentUserDni, facilities);
+    }
+
+    getFacilities(){
+        return this.storageStrategy.getFacilities();
+    }
+
+    getCurrentStorageStrategy(){
+        var strategy = localStorage.getItem('currentStorageStrategy');
+        if(strategy == undefined || strategy == null)
+            return "RemoteStorageStrategy";
+        else return strategy;
+    }
+
+    storeCurrentStorageStrategy(strategy){
+        localStorage.setItem('currentStorageStrategy', strategy);
+    }
+
+    getCurrentScanStrategy(){
+        var strategy = localStorage.getItem('currentScanStrategy');
+        if(strategy == undefined || strategy == null)
+            return "CheckInScanStrategy";
+        else return strategy;
+    }
+
+    storeCurrentScanStrategy(strategy){
+        localStorage.setItem('currentScanStrategy', strategy);
+    }
 
     setStorageStrategy(aClass) {
 
         return new Promise((resolve, reject) => {
-            console.log(aClass, storageStrategies);
-            this.storageStrategy = new storageStrategies["RemoteStorageStrategy"](this.authenticationService, this.router);  // TODO: enable it when the local strategy is ready: new storageStrategies[aClass](this.router);
+            console.log("setStorageStrategy", aClass);
+            this.storageStrategy = new storageStrategies[aClass](this.authenticationService, this.router);  // TODO: enable it when the local strategy is ready: new storageStrategies[aClass](this.router);
+            this.storeCurrentStorageStrategy(aClass);
             resolve();
         });
     }
@@ -32,25 +65,26 @@ export class StorageService {
     setScanStrategy(aClass) {
 
         return new Promise((resolve, reject) => {
+            console.log("setScanStrategy", aClass);
             this.scanStrategy = new scanStrategies[aClass](this.router);
+            this.storeCurrentScanStrategy(aClass);
             resolve();
         });
     }
 
-    setCurrentUserByDNI(dni) {
+    setCurrentVisitorByDNI(dni) {
 
     	return new Promise((resolve, reject) => {
-            this.getUserByDNI(dni).then(user=>{
-            	console.log('current user:', user);
-	            this.currentUserId=user['dni'];
+            this.getUserByDNI(dni).then(res=>{
+	            this.currentUserDni=res.data.dni;
+                localStorage.setItem('currentVisitorDni', res.data.dni);
 	            resolve();
 	        });     
         });
     }
 
-    getCurrentUser() {
-        console.log(this.currentUserId);
-        return this.getUserByDNI(this.currentUserId);
+    getCurrentVisitor() {
+        return this.getUserByDNI(this.currentUserDni);
     }
 
     getUserByDNI(dni) {
@@ -68,9 +102,9 @@ export class StorageService {
         return this.storageStrategy.logout();
     }
 
-    getCurrentUserValue() {
+    getCurrentGuardDni() {
         
-        return this.storageStrategy.getCurrentUserValue();
+        return this.storageStrategy.getCurrentGuardDni();
     }
 
     getMeasurementsRoute(){

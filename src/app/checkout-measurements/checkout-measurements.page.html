@@ -1,29 +1,37 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">  
-    	<ion-back-button defaultHref="scan"></ion-back-button>
-    </ion-buttons>  
-    <ion-title>Registro de salida del visitante</ion-title> 
-   </ion-toolbar>   
- </ion-header>  
+	<ion-toolbar>
+		<ion-buttons slot="start">  
+			<ion-back-button defaultHref="scan"></ion-back-button>
+		</ion-buttons>  
+		<ion-title>Registro de salida del visitante</ion-title> 
+	</ion-toolbar>   
+</ion-header>  
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
-        <ion-item>
-		    <ion-label class="ion-text-wrap">
-		    ¿Qué unidades academicas visitó hoy?
-		    </ion-label>
+	<ion-item>
+		<ion-label class="ion-text-wrap">
+			¿Qué unidades academicas visitó hoy?
+		</ion-label>
+	</ion-item>
+
+	<ion-list>
+		<ion-item *ngFor="let option of checkboxes">
+			<ion-label>{{option.label}}</ion-label>
+			<ion-checkbox slot="start" value="{{option.value}}" [(ngModel)]="option.isItemChecked">
+			</ion-checkbox>
 		</ion-item>
+	</ion-list>
 
 </ion-content>
 
 <ion-footer>
 	<ion-toolbar>
 		<ion-row>
-	        <ion-col>
-	          <ion-button [routerLink]="['/scan']" type="submit" color="danger" expand="block">Guardar <ion-icon slot="end" name="save"></ion-icon></ion-button>
-	        </ion-col>
-	    </ion-row>
+			<ion-col>
+				<ion-button type="submit" (click)="onSubmit()" color="danger" expand="block">Guardar <ion-icon slot="end" name="save"></ion-icon></ion-button>
+			</ion-col>
+		</ion-row>
 	</ion-toolbar>
 </ion-footer>
 

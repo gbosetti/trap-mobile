@@ -12,6 +12,9 @@ import {StorageService} from './_services/storage.service';
 })
 export class AppComponent {
 
+  private scanStrategy;
+  private storageStrategy;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -30,8 +33,10 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    this.storage.setScanStrategy('CheckInScanStrategy'); 
-    this.storage.setStorageStrategy('RemoteStorageStrategy');
+    this.storage.setScanStrategy(this.storage.getCurrentScanStrategy()); 
+    this.scanStrategy = this.storage.getCurrentScanStrategy();
+    this.storage.setStorageStrategy(this.storage.getCurrentStorageStrategy());
+    this.storageStrategy = this.storage.getCurrentStorageStrategy();
   }
 
   logout(){

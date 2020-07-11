@@ -1,5 +1,4 @@
 import {ScanStrategy} from "./scan-strategy";
-import { Router } from '@angular/router';
 
 export class CheckInScanStrategy extends ScanStrategy {
 
@@ -8,6 +7,6 @@ export class CheckInScanStrategy extends ScanStrategy {
 	}
 
     getMeasurementsRoute(){
-    	return '/measurements';
+    	return '/checkin-measurements';
     }
 }

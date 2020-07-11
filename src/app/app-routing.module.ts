@@ -20,13 +20,13 @@ const routes: Routes = [
     loadChildren: () => import('./scan/scan.module').then( m => m.ScanPageModule)
   },
   {
-    path: 'measurements',
+    path: 'checkin-measurements',
     loadChildren: () => import('./checkin-measurements/checkin-measurements.module').then( m => m.CheckinMeasurementsPageModule)
   },
   {
     path: 'checkout-measurements',
     loadChildren: () => import('./checkout-measurements/checkout-measurements.module').then( m => m.CheckoutMeasurementsPageModule)
-  },
+  }
 ];
 
 @NgModule({

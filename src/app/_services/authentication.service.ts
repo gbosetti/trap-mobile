@@ -9,19 +9,19 @@ import * as $ from 'jquery';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    private currentGuardSubject: BehaviorSubject<User>;
+    public currentGuard: Observable<User>;
     private apiUrl; //THIS SHOULD BE REPLACED BY THE ENVIRONMENTS VAR
+    private currentGuardDni;
 
     constructor(private http: HttpClient) {
-        console.log("STORAGE", localStorage.getItem('currentUser'));
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
+        //this.currentGuardSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentGuard')));
+        //this.currentGuard = this.currentGuardSubject.asObservable();
+        this.currentGuardDni = localStorage.getItem('currentGuard');
     }
 
-    public get currentUserValue(): User {
-        console.log("GET", this.currentUserSubject.value)
-        return this.currentUserSubject.value;
+    getCurrentGuardDni() {
+        return this.currentGuardDni; //this.currentGuardSubject.value;
     }
 
     login(dni, password) {
@@ -49,8 +49,9 @@ export class AuthenticationService {
                             user["lastName"] = data["data"]["apellido"];
                             user["token"] = 'fake-jwt-token';
                             
-                        localStorage.setItem('currentUser', JSON.stringify(user));
-                        self.currentUserSubject.next(user);
+                        localStorage.setItem('currentGuard', data["data"]["dni"]);
+                        this.currentGuardDni = data["data"]["dni"];
+                        //self.currentGuardSubject.next(user);
                         resolve(user);
                     }
                     else {reject(data.message);};
@@ -65,9 +66,9 @@ export class AuthenticationService {
     }
 
     logout() {
-        console.log("LOGOUT", this.currentUserSubject);
         // remove user from local storage and set current user to null
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
+        this.currentGuardDni = null;
+        localStorage.removeItem('currentGuard');
+        //this.currentGuardSubject.next(null);
     }
 }
