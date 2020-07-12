@@ -42,14 +42,13 @@ export class RegisterVisitorPage implements OnInit {
 	onSubmit() {
 	    this.submitted = true;
 
-	    console.log('submitting...');
 	    // stop here if form is invalid
 	    if (this.form.invalid) {
 	        return;
 	    }
 
 	    this.loading = true;
-	    console.log('registerVisitor...');
+
 	    this.storage.registerVisitor(this.f.dni.value, this.f.name.value, this.f.surname.value, this.f.telefono.value.toString(), this.f.codigo_area.value.toString()).then(userData => {
 
 	        this.storage.setCurrentVisitorByDNI(this.f.dni.value).then(userData => {
