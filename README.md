@@ -31,14 +31,18 @@ npm i @ionic/lab --save-dev
 
 # DEV ENVIRONMENT #
 
-0. Clone the project and install dependencies:
-`npm install`
+0. Set up the backend https://github.com/gbosetti/trap-backend
 
-1. Run the command to start the Ionic app:
+1. Clone the project and install dependencies:
+`git clone https://github.com/gbosetti/trap-mobile
+cd trap-mobile
+npm install`
+
+2. Run the command to start the Ionic app:
 `ionic serve -l`
 
 or:
 `ionic cordova run android --device`
 
-2. To deploy:
+3. To deploy:
 `ionic cordova build android --prod`
