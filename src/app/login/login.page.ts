@@ -51,7 +51,11 @@ export class LoginPage {
 
 	    this.loading = true;
 	    this.storage.login(this.f.dni.value, this.f.password.value).then(userData => {
-	        this.router.navigate(['/scan']);
+            this.loginForm.reset();
+            Object.keys(this.loginForm.controls).forEach(key => {
+              this.loginForm.get(key).setErrors(null) ;
+            });
+            this.router.navigate(['/scan']);
 	    }, errorMessage => {
 	        alert(errorMessage);
 	        this.loading = false;

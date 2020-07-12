@@ -12,16 +12,16 @@ export class AuthenticationService {
     private currentGuardSubject: BehaviorSubject<User>;
     public currentGuard: Observable<User>;
     private apiUrl; //THIS SHOULD BE REPLACED BY THE ENVIRONMENTS VAR
-    private currentGuardDni;
+    //private currentGuardDni;
 
     constructor(private http: HttpClient) {
         //this.currentGuardSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentGuard')));
         //this.currentGuard = this.currentGuardSubject.asObservable();
-        this.currentGuardDni = localStorage.getItem('currentGuard');
+        //this.currentGuardDni = localStorage.getItem('currentGuard');
     }
 
     getCurrentGuardDni() {
-        return this.currentGuardDni; //this.currentGuardSubject.value;
+        return localStorage.getItem('currentGuard'); //this.currentGuardSubject.value;
     }
 
     login(dni, password) {
@@ -50,7 +50,7 @@ export class AuthenticationService {
                             user["token"] = 'fake-jwt-token';
                             
                         localStorage.setItem('currentGuard', data["data"]["dni"]);
-                        this.currentGuardDni = data["data"]["dni"];
+                        //this.currentGuardDni = data["data"]["dni"];
                         //self.currentGuardSubject.next(user);
                         resolve(user);
                     }
@@ -67,7 +67,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage and set current user to null
-        this.currentGuardDni = null;
+        //this.currentGuardDni = null;
         localStorage.removeItem('currentGuard');
         //this.currentGuardSubject.next(null);
     }

@@ -19,9 +19,7 @@ export class RemoteStorageStrategy extends StorageStrategy{
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    console.log(data);
                     var res = JSON.parse(data);    
-                    console.log(res);                
                     if(res.error==false) resolve(res);
                     else reject(res.message);
                 },
@@ -43,7 +41,6 @@ export class RemoteStorageStrategy extends StorageStrategy{
                 contentType: false,
                 success: function (data) {
                     var res = JSON.parse(data);
-                    //console.log(res);
                     if(res.error==false) resolve(res);
                     else reject(res.message);
                 },
@@ -150,11 +147,14 @@ export class RemoteStorageStrategy extends StorageStrategy{
     logout() {
         var res = this.authenticationService.logout();
         this.router.navigate(['/login']);
+        localStorage.clear();
         return res;
     }
 
     getCurrentGuard(){
-        return this.getUserByDNI(this.authenticationService.getCurrentGuardDni());
+        var guardDNI = this.authenticationService.getCurrentGuardDni();
+        console.log('guardDNI', guardDNI);
+        return this.getUserByDNI(guardDNI);
     }
 
     createFacilities(name){
