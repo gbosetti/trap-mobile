@@ -11,4 +11,6 @@ export abstract class StorageStrategy {
 	abstract login(dni, password) 
 	abstract logout()
 	abstract getCurrentGuard()
+	abstract checkUserAlreadyEntered(dni)
+	abstract sendNewPass(dni)
 }

@@ -135,4 +135,20 @@ export class StorageService {
         
         return this.scanStrategy.getMeasurementsRoute();
     }
+
+    getCurrentGuardToken() {
+        return this.storageStrategy.getCurrentGuardToken();
+    }
+
+    setCurrentGuardToken(token) {
+        return this.storageStrategy.setCurrentGuardToken(token);
+    }
+
+    checkUserAlreadyEntered(dni){
+        return this.storageStrategy.checkUserAlreadyEntered(dni);
+    }
+
+    sendNewPass(dni){
+        return this.storageStrategy.sendNewPass(dni);
+    }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../_services/storage.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AlertController } from '@ionic/angular';
 
@@ -15,18 +15,26 @@ export class CheckoutMeasurementsPage implements OnInit {
   visitor: string;
 
   constructor(private storage: StorageService, private router: Router, public alertController: AlertController) {
-
-  	this.loadFacilities();
-
-    this.storage.getCurrentVisitor().then(res=>{
-      this.visitor = res.data.apellido.toUpperCase() + ", " + res.data.nombre + " (" + res.data.dni + ")"
-    }).catch(err=>{console.log(err)});
+    
   }
 
   loadFacilities(){
-    this.storage.getFacilities().then(facilities=>{
-      this.checkboxes = facilities.map(f=>{ return {"value": f.id, "label": f.nombre, "isItemChecked": false}});
+    this.storage.getFacilities().then(res=>{
+      this.checkboxes = res.data.map(f=>{ return {"value": f.id, "label": f.nombre, "isItemChecked": false}});
     });
+  }
+
+  ionViewDidEnter(){
+    this.loadFacilities();
+    this.storage.getCurrentVisitor().then(res=>{
+      this.visitor = res.data.apellido.toUpperCase() + ", " + res.data.nombre + " (" + res.data.dni + ")"
+      
+      this.storage.checkUserAlreadyEntered(res.data.dni).then(res=>{}).catch(msg=>{
+        alert(msg);
+        this.router.navigate(["/checkin-measurements"]);
+      });
+
+    }).catch(err=>{console.log(err)});
   }
 
   ngOnInit() {

@@ -53,6 +53,9 @@ export class RegisterVisitorPage implements OnInit {
 
 	        this.storage.setCurrentVisitorByDNI(this.f.dni.value).then(userData => {
 	            this.form.reset();
+	            Object.keys(this.form.controls).forEach(key => {
+	              this.form.get(key).setErrors(null) ;
+	            });
 	            this.router.navigate(['/checkin-measurements']);
 	        }, errorMessage => {
 	              alert(errorMessage);

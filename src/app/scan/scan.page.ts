@@ -1,89 +1,98 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  BarcodeScannerOptions,
-  BarcodeScanner
+	BarcodeScannerOptions,
+	BarcodeScanner
 } from "@ionic-native/barcode-scanner/ngx";
 import {StorageService} from '../_services/storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import * as $ from 'jquery';
+import * as $ from 'jquery';
 //declare var bootbox: any;
 
 @Component({
-  selector: 'app-scan',
-  templateUrl: './scan.page.html',
-  styleUrls: ['./scan.page.scss'],
+	selector: 'app-scan',
+	templateUrl: './scan.page.html',
+	styleUrls: ['./scan.page.scss'],
 })
 export class ScanPage implements OnInit {
 
-  scannedData: {};
-  barcodeScannerOptions: BarcodeScannerOptions;
-  form: FormGroup;
-  loading = false;
-  submitted = false;
+	scannedData: {};
+	barcodeScannerOptions: BarcodeScannerOptions;
+	form: FormGroup;
+	loading = false;
+	submitted = false;
 
-  constructor(private barcodeScanner: BarcodeScanner, private storage: StorageService, private formBuilder: FormBuilder, private router: Router) {
-    //Options
-    this.barcodeScannerOptions = {
-      showTorchButton: true,
-      showFlipCameraButton: true
-    };
-  }
+	constructor(private barcodeScanner: BarcodeScanner, private storage: StorageService, private formBuilder: FormBuilder, private router: Router) {
+		//Options
+		this.barcodeScannerOptions = {
+			showTorchButton: true,
+			showFlipCameraButton: true
+		};
+	}
 
-  scanCode() {
-  	console.log(this.barcodeScanner);
-    /*this.barcodeScanner
-      .scan()
-      .then(barcodeData => {
-        alert("Barcode data " + JSON.stringify(barcodeData));
-        //this.scannedData = barcodeData;
-        this.storage.setCurrentUserByDNI(33609728); //Example
-      })
-      .catch(err => {
-        console.log("Error", err);
-      });*/
-  }
+	scanCode() {
+	//console.log(this.barcodeScanner);
+	/*this.barcodeScanner
+		.scan()
+		.then(barcodeData => {
+			alert("Barcode data " + JSON.stringify(barcodeData));
+			//this.scannedData = barcodeData;
+			this.storage.setCurrentUserByDNI(33609728); //Example
+		})
+		.catch(err => {
+			console.log("Error", err);
+		});*/
+	}
 
-  ngOnInit() {
-    this.form = this.formBuilder.group({
-        dni: ['', Validators.required]
-    });
-    this.form.reset();
-  }
+	ngOnInit() {
+		this.form = this.formBuilder.group({
+			dni: ['', Validators.required]
+		});
+	}
 
-  get f() { return this.form.controls; }
+	ionViewDidEnter(){
+		this.resetForm();
+	}
 
-  onSubmit() {
-      this.submitted = true;
-      // stop here if form is invalid
-      if (this.form.invalid) {
-          alert("Por favor, escanee o ingrese por teclado un DNI o pasaporte");
-          return;
-      }
+	get f() { return this.form.controls; }
 
-      this.loading = true;
-      this.storage.getUserByDNI(this.f.dni.value).then((res:any) => {
-        
-        if(res.data==undefined){
-          alert("El visitante no está registrado bajo este DNI/pasaporte. Por favor, primero regístrelo.");
-          this.router.navigate(['/register-visitor']);
-          return;
-        }
+	onSubmit() {
+		this.submitted = true;
+		// stop here if form is invalid
+		if (this.form.invalid) {
+			alert("Por favor, escanee o ingrese por teclado un DNI o pasaporte");
+			return;
+		}
 
-        if(res.data.dni == this.f.dni.value){
-          this.storage.setCurrentVisitorByDNI(res.data.dni).then(userData => {
-            this.form.reset();
-            this.router.navigate([this.storage.getMeasurementsRoute()]);
-          }, errorMessage => {
-              alert(errorMessage);
-              this.loading = false;
-          });
-        }
+		this.loading = true;
+		this.storage.getUserByDNI(this.f.dni.value).then((res:any) => {
+			
+			if(res.data==undefined){
+				alert("El visitante no está registrado bajo este DNI/pasaporte. Por favor, primero regístrelo.");
+				this.router.navigate(['/register-visitor']);
+				return;
+			}
 
-      }, errorMessage => {
-          alert(errorMessage);
-          this.loading = false;
-      });
-  }
+			if(res.data.dni == this.f.dni.value){
+				this.storage.setCurrentVisitorByDNI(res.data.dni).then(userData => {
+					this.resetForm();
+					this.router.navigate([this.storage.getMeasurementsRoute()]);
+				}, errorMessage => {
+					alert(errorMessage);
+					this.loading = false;
+				});
+			}
 
+		}, errorMessage => {
+			alert(errorMessage);
+			this.loading = false;
+		});
+	}
+
+	resetForm(){
+		this.form.reset();
+		Object.keys(this.form.controls).forEach(key => {
+			this.form.get(key).setErrors(null) ;
+		});
+	}
 }

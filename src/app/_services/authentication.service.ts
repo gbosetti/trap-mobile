@@ -24,6 +24,14 @@ export class AuthenticationService {
         return localStorage.getItem('currentGuard'); //this.currentGuardSubject.value;
     }
 
+    getCurrentGuardToken() {
+        return localStorage.getItem('currentGuardToken'); 
+    }
+
+    setCurrentGuardToken($token) {
+        return localStorage.setItem('currentGuardToken', $token); 
+    }
+
     login(dni, password) {
 
         var formData = new FormData();
@@ -33,12 +41,11 @@ export class AuthenticationService {
         var self = this;
         return new Promise((resolve, reject) => {
             $.ajax({
-                "url": environment.apiUrl + 'authenticate_admin.php',
+                "url": environment.apiUrl + 'guardia_autenticar.php',
                 "type": 'post',
                 "processData": false,
                 "contentType": false,
-                "success": function (data) {
-                    console.log(data);
+                "success": (data)=>{
 
                     data = JSON.parse(data);
                     if ('data' in data) {
@@ -47,9 +54,10 @@ export class AuthenticationService {
                             user["dni"] = data["data"]["dni"];
                             user["firstName"] = data["data"]["nombre"];
                             user["lastName"] = data["data"]["apellido"];
-                            user["token"] = 'fake-jwt-token';
+                            user["token"] =  data["data"]["token"];
                             
                         localStorage.setItem('currentGuard', data["data"]["dni"]);
+                        this.setCurrentGuardToken(data["data"]["token"]);
                         //this.currentGuardDni = data["data"]["dni"];
                         //self.currentGuardSubject.next(user);
                         resolve(user);
@@ -57,7 +65,6 @@ export class AuthenticationService {
                     else {reject(data.message);};
                 },
                 "error": function (request, status) {
-                    console.log(request, status);
                     reject(request.responseText);
                 },
                 "data": formData
@@ -69,6 +76,7 @@ export class AuthenticationService {
         // remove user from local storage and set current user to null
         //this.currentGuardDni = null;
         localStorage.removeItem('currentGuard');
+        localStorage.removeItem('currentGuardToken');
         //this.currentGuardSubject.next(null);
     }
 }

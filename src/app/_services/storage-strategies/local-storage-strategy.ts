@@ -52,4 +52,12 @@ export class LocalStorageStrategy extends StorageStrategy {
     createFacilities(name){
 
     }
+
+    checkUserAlreadyEntered(dni){
+
+    }
+
+    sendNewPass(dni){
+
+    }
 }

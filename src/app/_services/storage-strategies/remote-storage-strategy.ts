@@ -6,11 +6,20 @@ import { Router } from '@angular/router';
 
 export class RemoteStorageStrategy extends StorageStrategy{
 
+    private authError: string;
+
 	constructor(private authenticationService: AuthenticationService, private router: Router) { 
 		super();
+        this.authError="Su sesión ha caducado. Por favor, inicie sesión nuevamente.";
 	}
 
     post(formData, endpoint) {
+
+        if(formData==undefined){
+            formData = new FormData();
+        }
+        formData.append("guard_token", this.authenticationService.getCurrentGuardToken());
+        formData.append("guard_dni", this.authenticationService.getCurrentGuardDni());
 
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -18,10 +27,8 @@ export class RemoteStorageStrategy extends StorageStrategy{
                 type: 'post',
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    var res = JSON.parse(data);    
-                    if(res.error==false) resolve(res);
-                    else reject(res.message);
+                success: (data)=>{
+                    this.handleResponseSuccess(data, resolve, reject);
                 },
                 "error": function (request, status) {
                     reject(status);
@@ -31,7 +38,26 @@ export class RemoteStorageStrategy extends StorageStrategy{
         });
     }
 
+    handleResponseSuccess(data, resolve, reject){
+        //console.log(data);
+        var res = JSON.parse(data);   
+        if(res.auth==undefined || res.auth==false) {
+            this.logout();
+            reject(this.authError);
+        }
+        else this.authenticationService.setCurrentGuardToken(res.token);
+
+        if(res.error==false) resolve(res);
+        else reject(res.message);
+    }
+
     get(formData, endpoint) {
+
+        if(formData==undefined){
+            formData = new FormData();
+        }
+        formData.append("guard_token", this.authenticationService.getCurrentGuardToken());
+        formData.append("guard_dni", this.authenticationService.getCurrentGuardDni());
 
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -39,10 +65,8 @@ export class RemoteStorageStrategy extends StorageStrategy{
                 type: 'get',
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    var res = JSON.parse(data);
-                    if(res.error==false) resolve(res);
-                    else reject(res.message);
+                success: (data)=>{
+                    this.handleResponseSuccess(data, resolve, reject);
                 },
                 "error": function (request, status) {
                     reject(request.responseText);
@@ -77,7 +101,7 @@ export class RemoteStorageStrategy extends StorageStrategy{
     }
 
     getRandomQuestions(){
-        return this.get(undefined, 'preguntas_random.php');
+        return this.post(undefined, 'preguntas_random.php');
     }
 
     checkoutVisitor(dni_visitante, facilities){
@@ -103,21 +127,7 @@ export class RemoteStorageStrategy extends StorageStrategy{
     }
 
     getFacilities(){
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                url: environment.apiUrl+'instalaciones.php',
-                type: 'get',
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    var res = JSON.parse(data);
-                    resolve(res);
-                },
-                "error": function (request, status) {
-                    reject(request.responseText);
-                }
-            });
-        });
+        return this.post(undefined, 'instalaciones.php');
     }
 
     getCurrentGuardDni(){
@@ -153,7 +163,6 @@ export class RemoteStorageStrategy extends StorageStrategy{
 
     getCurrentGuard(){
         var guardDNI = this.authenticationService.getCurrentGuardDni();
-        console.log('guardDNI', guardDNI);
         return this.getUserByDNI(guardDNI);
     }
 
@@ -162,5 +171,20 @@ export class RemoteStorageStrategy extends StorageStrategy{
             formData.append("nombre", name);
 
         return this.post(formData, "instalaciones_nueva.php");
+    }
+
+    checkUserAlreadyEntered(dni){
+
+        var formData = new FormData();
+            formData.append("dni", dni);
+
+        return this.post(formData, "movimiento_tiene_checkin.php");
+    }
+
+    sendNewPass(dni){
+        var formData = new FormData();
+            formData.append("dni", dni);
+
+        return this.post(formData, "guardia_recuperar_pass.php");
     }
 }
