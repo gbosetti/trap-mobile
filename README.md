@@ -1,6 +1,7 @@
 # REQUIREMENTS #
 
-This application was developed using the following configuration:
+This application is developed as the frontend of a triage platform, to be used by guards at the entrance of a campus. 
+It was developed using the following configuration:
 
 Ionic:
 
@@ -29,7 +30,7 @@ System:
 npm i @ionic/lab --save-dev
 
 
-# DEV ENVIRONMENT #
+# Setup #
 
 0. Set up the backend https://github.com/gbosetti/trap-backend
 
@@ -52,3 +53,9 @@ and visit `chrome://inspect/#devices`
 
 3. To deploy:
 `ionic cordova build android --prod`
+
+## Backend
+https://github.com/gbosetti/trap-backend
+
+## Demos
+https://www.youtube.com/playlist?list=PLHuNJBFXxaLDFt2sIIo-4rQIkes2s7WaN
