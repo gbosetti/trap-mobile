@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import {StorageService} from '../_services/storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,6 +19,7 @@ export class ScanPage implements OnInit {
 	form: FormGroup;
 	loading = false;
 	submitted = false;
+	@ViewChild('dniInput') dniInput;
 
 	constructor(/*private zbar: ZBar,*/ private barcodeScanner: BarcodeScanner, private storage: StorageService, private formBuilder: FormBuilder, private router: Router) {
 		//Options
@@ -63,6 +64,7 @@ export class ScanPage implements OnInit {
 
 	ionViewDidEnter(){
 		this.resetForm();
+	    this.dniInput.setFocus();
 	}
 
 	get f() { return this.form.controls; }

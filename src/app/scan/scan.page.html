@@ -21,7 +21,7 @@
           <form class="" [formGroup]="form">
             <ion-item lines="full">
               <ion-label position="floating">DNI/pasaporte</ion-label>
-              <ion-input type="text" formControlName="dni" autofocus="true" required></ion-input>
+              <ion-input type="text" #dniInput formControlName="dni" autofocus="true" required></ion-input>
             </ion-item>
           </form>
         </ion-col>

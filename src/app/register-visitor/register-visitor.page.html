@@ -12,7 +12,7 @@
 
 		<ion-item lines="full">
 			<ion-label position="">Nombre</ion-label>
-			<ion-input type="text" formControlName="name" required autofocus="true"></ion-input>
+			<ion-input #firstInput type="text" formControlName="name" required autofocus="true"></ion-input>
 			<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
 				<div *ngIf="f.name.errors.required">Este campo es obligatorio</div>
 			</div>

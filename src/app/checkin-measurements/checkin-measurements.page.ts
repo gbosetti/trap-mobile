@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {StorageService} from '../_services/storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
@@ -15,6 +15,7 @@ export class CheckinMeasurementsPage implements OnInit {
 	canGoBack: boolean = false;
   questions;
   visitor: string;
+  @ViewChild('firstInput') firstInput;
 
   constructor(private storage: StorageService, private router: Router) {
 
@@ -35,6 +36,10 @@ export class CheckinMeasurementsPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter(){
+      this.firstInput.setFocus();
   }
 
   onSubmit(){

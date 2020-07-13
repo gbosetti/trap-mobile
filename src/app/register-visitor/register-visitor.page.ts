@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../_services/storage.service';
@@ -21,11 +21,17 @@ export class RegisterVisitorPage implements OnInit {
     loading = false;
     submitted = false;
 
+    @ViewChild('firstInput') firstInput;
+
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private storage: StorageService
     ) {}
+
+    ionViewDidEnter(){
+      this.firstInput.setFocus();
+    }
 
     ngOnInit() {
         this.form = this.formBuilder.group({
