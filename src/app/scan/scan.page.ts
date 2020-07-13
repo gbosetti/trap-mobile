@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {
-	BarcodeScannerOptions,
-	BarcodeScanner
-} from "@ionic-native/barcode-scanner/ngx";
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import {StorageService} from '../_services/storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 //declare var bootbox: any;
+//import { ZBar, ZBarOptions } from '@ionic-native/zbar/ngx';
+
 
 @Component({
 	selector: 'app-scan',
@@ -16,32 +15,44 @@ import * as $ from 'jquery';
 })
 export class ScanPage implements OnInit {
 
-	scannedData: {};
 	barcodeScannerOptions: BarcodeScannerOptions;
 	form: FormGroup;
 	loading = false;
 	submitted = false;
 
-	constructor(private barcodeScanner: BarcodeScanner, private storage: StorageService, private formBuilder: FormBuilder, private router: Router) {
+	constructor(/*private zbar: ZBar,*/ private barcodeScanner: BarcodeScanner, private storage: StorageService, private formBuilder: FormBuilder, private router: Router) {
 		//Options
 		this.barcodeScannerOptions = {
 			showTorchButton: true,
-			showFlipCameraButton: true
+			showFlipCameraButton: true,
+			formats: 'PDF_417'
 		};
 	}
 
 	scanCode() {
-	//console.log(this.barcodeScanner);
-	/*this.barcodeScanner
-		.scan()
-		.then(barcodeData => {
-			alert("Barcode data " + JSON.stringify(barcodeData));
-			//this.scannedData = barcodeData;
-			this.storage.setCurrentUserByDNI(33609728); //Example
-		})
-		.catch(err => {
-			console.log("Error", err);
-		});*/
+		this.barcodeScanner
+			.scan(this.barcodeScannerOptions)
+			.then(barcodeData => {
+				if(barcodeData.text && barcodeData.format=='PDF_417'){
+					var dni = barcodeData.text.split("@")[4];
+					this.form.controls.dni.setValue(dni);
+					this.storage.setCurrentVisitorByDNI(dni);
+				}
+			})
+			.catch(err => { console.log("Error", err);
+		});
+		/*let options: ZBarOptions = {
+		      flash: 'off',
+		      drawSight: false
+		    }
+
+		this.zbar.scan(options)
+		   .then(result => {
+		      console.log(result); // Scanned code
+		   })
+		   .catch(error => {
+		      console.log(error); // Error message
+		   });*/
 	}
 
 	ngOnInit() {
