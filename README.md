@@ -59,3 +59,13 @@ https://github.com/gbosetti/trap-backend
 
 ## Demos
 https://www.youtube.com/playlist?list=PLHuNJBFXxaLDFt2sIIo-4rQIkes2s7WaN
+
+## Signing a release
+
+```
+ionic cordova build android --prod --release
+cd ./platforms/android/app/build/outputs/apk/release
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./my-release-key.keystore ./app-release-unsigned.apk trap
+zipalign -v 4 app-release-unsigned.apk trap-triage.apk
+```
